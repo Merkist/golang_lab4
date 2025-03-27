@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Part 1</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<h2>Калькулятор. Частина 1.</h2>
+
+{{ if .error }}
+<p style="color: red;">{{ .error }}</p>
+{{ end }}
+
+<form action="/calculate_part1" method="post">
+  <label for="Voltage">Напруга (кВ):</label>
+  <input type="number" id="Voltage" name="Voltage" step="any" value="10.0" required>
+
+  <label for="Current">Струм К3 (кА):</label>
+  <input type="number" id="Current" name="Current" step="any" value="2.5" required>
+
+  <label for="FicTime">Фіктивний час вимикання струму К3 (с):</label>
+  <input type="number" id="FicTime" name="FicTime" step="any" value="2.5" required>
+
+  <label for="Load">Розрахункове навантаження (кВ*А):</label>
+  <input type="number" id="Load" name="Load" step="any" value="1300" required>
+
+  <label for="Time">Т(м) (год):</label>
+  <input type="number" id="Time" name="Time" step="any" value="4000" required>
+
+  <button type="submit">Розрахувати</button>
+</form>
+
+<div id="results">
+  {{ if and .CurrentNormal .CurrentEmerg .SectionEconom .SectionMin}}
+  <h2>Результат:</h2>
+  <p><strong>Розрахунковий струм для нормального режима (А):</strong> <span>{{ .CurrentNormal }}</span></p>
+  <p><strong>Розрахунковий струм для післяаварійного режима (А):</strong> <span>{{ .CurrentEmerg }}</span></p>
+  <p><strong>Економічний переріз (мм2):</strong> <span>{{ .SectionEconom }}</span></p>
+  <p><strong>Кабель AAБ 10 3х25 3 допустимим струмом Ідоп=90A (s_min):</strong> <span>{{ .SectionMin }}</span></p>
+  {{ end }}
+</div>
+
+<a href="/"><button>Назад</button></a>
+</body>
+</html>

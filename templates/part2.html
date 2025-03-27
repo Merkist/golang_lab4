@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 2</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<h2>Калькулятор. Частина 2.</h2>
+
+{{ if .error }}
+<p style="color: red;">{{ .error }}</p>
+{{ end }}
+
+<form action="/calculate_part2" method="post">
+    <label for="Voltage2">Напруга (кВ):</label>
+    <input type="number" id="Voltage2" name="Voltage2" step="any" value="10.5" required>
+
+    <label for="Power">Потужність K3: </label>
+    <input type="number" id="Power" name="Power" step="any" value="200" required>
+
+    <button type="submit">Розрахувати</button>
+</form>
+
+<div id="results">
+    {{ if and .resultResistance .resultCurrent}}
+    <h2>Результат:</h2>
+    <p><strong>Сумарний oпip для точки K1 (Ом):</strong> <span>{{ .resultResistance }}</span></p>
+    <p><strong>Початкове діюче значення струму трифазного K3 (кА):</strong> <span>{{ .resultCurrent }}</span></p>
+    {{ end }}
+</div>
+
+<a href="/"><button>Назад</button></a>
+</body>
+</html>
